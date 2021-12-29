@@ -33,70 +33,29 @@ echo "Grabbing Traefik binaries from GitHub..."
 echo ""
 echo "#######################################"
 echo ""
-wget https://github.com/traefik/traefik/releases/download/v2.5.5/traefik_v2.5.5_linux_armv6.tar.gz
-tar -xvzf traefik_v2.5.5_linux_armv6.tar.gz
-rm CHANGELOG.md LICENSE.md traefik_v2.5.5_linux_armv6.tar.gz
+wget https://github.com/traefik/traefik/releases/download/v2.5.6/traefik_v2.5.6_linux_armv6.tar.gz
+tar -xvzf traefik_v2.5.6_linux_armv6.tar.gz
+rm CHANGELOG.md LICENSE.md traefik_v2.5.6_linux_armv6.tar.gz
 chmod +x traefik
 mv traefik /usr/local/bin/
 
 echo "#######################################"
 echo ""
-echo "Creating basic configuration file..."
+echo "Creating Static configuration file..."
 echo ""
 echo "#######################################"
 echo ""
 
-echo 'debug = false
+echo '' > /etc/traefik/traefik.yaml
 
-#Uncomment below if you selfsigned backends
-#insecureSkipVerify = true
+echo "#######################################"
+echo ""
+echo "Creating Dynamic configuration file..."
+echo ""
+echo "#######################################"
+echo ""
 
-logLevel = "ERROR"
-
-defaultEntryPoints = ["https","http"]
-
-[entryPoints]
-# Redirect http to https
-  [entryPoints.http]
-  address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
-
-# Define https
-  [entryPoints.https]
-  address = ":443"
-  [entryPoints.https.tls]
-
-[retry]
-[api]
-
-# This is for SSL certs auto-renewals
-[acme]
-  email = "you@email.com"
-  storage = "/etc/traefik/acme.json"
-  entryPoint = "https"
-  onHostRule = true
-
-[acme.httpChallenge]
-  entryPoint = "http"
-
-[file]
-
-# definition of backend servers
-[backends]
-  # Plex Server
-  [backends.plex]
-    [backends.plex.servers.server1]
-      url = "http://10.0.0.21"
-
-# definition of frontend listeners  
-[frontends]
-    # Plex listens on URL plex.jlpc.dns.us
-    [frontends.plex]
-      backend = "plex"
-      passHostHeader = true
-    [frontends.plex.routes.server1]
-      rule = "Host:plex.jlpc.dns1.us"' > /etc/traefik/traefik.toml;
+echo '' > /etc/traefik/traefik-dynamic.yaml
 
 echo "#######################################"
 echo ""
