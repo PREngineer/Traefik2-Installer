@@ -72,7 +72,7 @@ http:
       echo "        - url: \"$BACKEND\"" >> $SERVICENAME.yaml
       read -p "Do you need to add another backend url (for load balancing) ? [Y/N] " ADD
     done
-    mv $SERVICENAME /etc/traefik/dynamics/
+    mv $SERVICENAME.yaml /etc/traefik/dynamics/
     
     echo "-----------------------------------------------------------------------------------"
     read -p "Do you want to create a new Dynamic Configuration for a host? [Y/N]: " NEWCONFIG
